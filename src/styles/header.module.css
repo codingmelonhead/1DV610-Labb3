@@ -1,0 +1,7 @@
+.headerImage {
+  max-width: 100%;
+}
+
+.headerContainer {
+  display: flex;
+}
