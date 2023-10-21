@@ -8,12 +8,18 @@ const MovieFetcherButton = ({ dataFetched }) => {
   const fetchData = async () => {
     setIsLoading(true)
 
+    const apiKey = process.env.RAPID_KEY
+
     try {
       const response = await axios.get(
         'https://moviesdatabase.p.rapidapi.com/titles/random', {
           headers: {
             'X-RapidAPI-Key': 'a8ed24055fmsh2ed628d4577cf1bp1c0bfejsn083ecc17d6ac',
             'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com',
+          },
+          params: {
+            list: 'top_boxoffice_200',
+            info: 'base_info',
           },
         })
 
@@ -34,3 +40,5 @@ const MovieFetcherButton = ({ dataFetched }) => {
     </>
   )
 }
+
+export default MovieFetcherButton
