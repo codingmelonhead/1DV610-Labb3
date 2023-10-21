@@ -4,14 +4,17 @@ import Image from 'next/image'
 const MovieCard = (movieTitle, movieDescription, movieImage) => {
   return (
     <>
-    <div>
-      <h1>{movieTitle}</h1>
-      <p>{movieDescription}</p>
+    <div className={styles.container}>
+      <h2 className={styles.titleStyle}>{movieTitle}</h2>
+      <p className={styles.descriptionStyle}>{movieDescription}</p>
       <Image
         src={movieImage}
-        alt="Movie cover" 
+        alt="Movie cover"
+        className={styles.imageStyle} 
       />
     </div>
     </>
   )
 }
+
+export default MovieCard
