@@ -35,7 +35,10 @@ const MovieSuggestionsContainer = () => {
     <>
     <div>
       <MovieFetcherButton dataFetched={handleFetchedData}/>
-      <MovieCard />
+      <MovieCard 
+        movieTitle={"Incredibles 2"} 
+        movieDescription={"The Incredibles family takes on a new mission which involves a change in family roles: Bob Parr (Mr. Incredible) must manage the house while his wife Helen (Elastigirl) goes out to save the world."} 
+        movieImage={"https://m.media-amazon.com/images/M/MV5BMTEzNzY0OTg0NTdeQTJeQWpwZ15BbWU4MDU3OTg3MjUz._V1_.jpg"}/>
     </div>
     </>
   )
