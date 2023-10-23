@@ -11,17 +11,19 @@ const MovieFetcherButton = ({ dataFetched }) => {
     { value: 'top_boxoffice_200', label: 'top 200 boxoffice ranked movies' },
     { value: 'top_rated_english_250', label: 'top 250 top ranked english movies' },
     { value: 'top_rated_lowest_100', label: '100 lowest ranked movies' },
+    { value: 'most_pop_movies', label: 'top 10.000 ranked movies'}
   ]
 
   const fetchData = async () => {
     setIsLoading(true)
-    const apiKey = process.env.RAPID_KEY
+    const apiKey = process.env.NEXT_PUBLIC_RAPID_KEY
 
     try {
+      console.log(apiKey)
       const response = await axios.get(
         'https://moviesdatabase.p.rapidapi.com/titles/random', {
           headers: {
-            'X-RapidAPI-Key': 'a8ed24055fmsh2ed628d4577cf1bp1c0bfejsn083ecc17d6ac',
+            'X-RapidAPI-Key': apiKey,
             'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com',
           },
           params: {

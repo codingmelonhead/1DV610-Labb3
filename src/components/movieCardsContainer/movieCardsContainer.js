@@ -10,7 +10,6 @@ const MovieSuggestionsContainer = () => {
 
   const handleFetchedData = (data) => {
     const extractGenreId = (item) => {
-      console.log(item)
       if (Array.isArray(item.genres.genres) && item.genres.genres.length > 0) {
         return item.genres.genres[0].id
       }
