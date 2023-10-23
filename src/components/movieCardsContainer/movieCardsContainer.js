@@ -2,9 +2,11 @@ import MovieFetcherButton from "../movieFetcherButton/movieFetcherButton"
 import { ArrayOrganizer } from '1dv610-labb2/array-helper-library/src/ArrayOrganizer.js'
 import GenreTitle from '../genreTitle/genreTitle'
 import MovieCard from '../movieCard/movieCard'
+import { useState } from 'react'
+import styles from '../../styles/movieCardsContainer.module.css'
 
 const MovieSuggestionsContainer = () => {
-  const moviesArray = []
+  const [movieCards, setMovieCards] = useState([])
   const arrayOrganizer = new ArrayOrganizer()
 
   const handleFetchedData = (data) => {
@@ -19,27 +21,41 @@ const MovieSuggestionsContainer = () => {
       
     const groupedResults = arrayOrganizer.groupByCallbackFunction(data.results, extractGenreId)
 
-    // for (let i = 0; i < groupedResults.length; i++) {
-    //   <GenreTitle title={groupedResults[i][0].genres.genres[0].text}/>
+    const newMovieCards = groupedResults.map((group) => {
+      const genre = group[0].genres.genres[0].text
 
-    //   for (let j = 0; j < groupedResults[i].length; j++) {
-    //     <MovieCard movieTitle={groupedResults[i][j].originalTitleText.text} movieDescription={groupedResults[i][j].plot.plotText.plainText} movieImage={groupedResults[i][j].primaryImage.caption.url}/>
-    //   }
-    // }
-    console.log(groupedResults)
+      const movieCardComponents = group.map((movie) => (
+        <MovieCard
+          key={movie.id}
+          movieTitle={movie.originalTitleText.text}
+          movieDescription={movie.plot.plotText.plainText}
+          movieImage={movie.primaryImage.url}
+        />
+      ))
 
-    console.log(data.results)
+      return (
+        <div key={genre}>
+          <GenreTitle title={genre} />
+          <div className={styles.flex}>
+            {movieCardComponents}
+          </div>
+        </div>
+      )
+    })
+
+    setMovieCards(newMovieCards)
   }
 
   return (
     <>
-    <div>
-      <MovieFetcherButton dataFetched={handleFetchedData}/>
-      <MovieCard 
-        movieTitle={"Incredibles 2"} 
-        movieDescription={"The Incredibles family takes on a new mission which involves a change in family roles: Bob Parr (Mr. Incredible) must manage the house while his wife Helen (Elastigirl) goes out to save the world."} 
-        movieImage={"https://m.media-amazon.com/images/M/MV5BMTEzNzY0OTg0NTdeQTJeQWpwZ15BbWU4MDU3OTg3MjUz._V1_.jpg"}/>
-    </div>
+      <div>
+        <div className={styles.buttonDiv}>
+          <MovieFetcherButton dataFetched={handleFetchedData} />
+        </div>
+        <div>
+          {movieCards}
+        </div>
+      </div>
     </>
   )
 }
