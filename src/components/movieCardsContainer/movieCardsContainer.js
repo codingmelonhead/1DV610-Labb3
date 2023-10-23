@@ -1,5 +1,5 @@
 import MovieFetcherButton from "../movieFetcherButton/movieFetcherButton"
-import { ArrayOrganizer } from '1dv610-labb2/array-helper-library/src/ArrayOrganizer.js'
+import { ArrayUtils } from '1dv610-labb2/array-helper-library/src/ArrayUtils.js'
 import GenreTitle from '../genreTitle/genreTitle'
 import MovieCard from '../movieCard/movieCard'
 import { useState } from 'react'
@@ -7,7 +7,6 @@ import styles from '../../styles/movieCardsContainer.module.css'
 
 const MovieSuggestionsContainer = () => {
   const [movieCards, setMovieCards] = useState([])
-  const arrayOrganizer = new ArrayOrganizer()
 
   const handleFetchedData = (data) => {
     const extractGenreId = (item) => {
@@ -18,8 +17,9 @@ const MovieSuggestionsContainer = () => {
 
       return 'Unknown'
     }
-      
-    const groupedResults = arrayOrganizer.groupByCallbackFunction(data.results, extractGenreId)
+
+    const arrayUtils = new ArrayUtils(data.results)  
+    const groupedResults = arrayUtils.groupByCallbackFunction(extractGenreId)
 
     const newMovieCards = groupedResults.map((group) => {
       const genre = group[0].genres.genres[0].text

@@ -5,9 +5,9 @@ import styles from '../../styles/movieFetcherButton.module.css'
 const MovieFetcherButton = ({ dataFetched }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [showPreferences, setShowPreferences] = useState(false)
-  const [selectedList, setSelectedList] = useState('top_boxoffice_200') // default list
+  const [preferenceOption, setPreferenceOption] = useState('top_boxoffice_200')
 
-  const options = [
+  const preferenceOptions = [
     { value: 'top_boxoffice_200', label: 'top 200 boxoffice ranked movies' },
     { value: 'top_rated_english_250', label: 'top 250 top ranked english movies' },
     { value: 'top_rated_lowest_100', label: '100 lowest ranked movies' },
@@ -25,7 +25,7 @@ const MovieFetcherButton = ({ dataFetched }) => {
             'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com',
           },
           params: {
-            list: selectedList,
+            list: preferenceOption,
             info: 'base_info',
             titleType: 'movie'
           },
@@ -34,6 +34,7 @@ const MovieFetcherButton = ({ dataFetched }) => {
       dataFetched(response.data)
       setIsLoading(false)
     } catch (error) {
+      console.log('Something went wrong when fetching movies')
       console.error(error)
     }
   }
@@ -50,9 +51,9 @@ const MovieFetcherButton = ({ dataFetched }) => {
       {showPreferences && (
         <div className={styles.preferenceList}>
           <div className={styles.optionTitle}>Select preference:</div>
-          {options.map(option => (
+          {preferenceOptions.map(option => (
             <div key={option.value} onClick={() => {
-              setSelectedList(option.value)
+              setPreferenceOption(option.value)
               setShowPreferences(false)
             }}>
               {option.label}
